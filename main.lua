@@ -3,8 +3,8 @@
 Gamestate = require 'libs.hump.gamestate'
 
 -- Pull in each of our game states
-local mainMenu = require 'gamestates.mainmenu'
-local gameLevel1 = require 'gamestates.gameLevel1'
+local mainMenu = require 'gamestates.mainMenu'
+local gameLevel1 = require 'gamestates.gamelevel1'
 local pause = require 'gamestates.pause'
 
 function love.load()
@@ -17,3 +17,7 @@ function love.keypressed(key)
     love.event.push("quit")
   end
 end
+
+--function love.draw()
+--love.graphics.print("Hello World!", 400, 300)
+--end

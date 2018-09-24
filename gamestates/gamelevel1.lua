@@ -13,17 +13,52 @@ local camera = require 'libs.camera'
 -- Declare a couple immportant variables
 player = nil
 
+math.randomseed(os.time())
+math.random()
+math.random()
+math.random()
+
+
 local gameLevel1 = Class{
   __includes = LevelBase
 }
 
 function gameLevel1:init()
   LevelBase.init(self, 'assets/levels/level_1.lua')
+  
+  --Parallax Scrolling test
+   camera.layers = {}
+  
+  for i = .5, 3, .5 do
+    local rectangles = {}
+    
+    for j = 1, math.random(2, 15) do
+      table.insert(rectangles, {
+        math.random(0, 1600),
+        math.random(0, 1600),
+        math.random(50, 400),
+        math.random(50, 400),
+        color = { math.random(0, 255), math.random(0, 255), math.random(0, 255) }
+      })
+    end
+    
+    camera:newLayer(i, function()
+      for _, v in ipairs(rectangles) do
+        love.graphics.setColor(v.color)
+        love.graphics.rectangle('fill', unpack(v))
+        love.graphics.setColor(255, 255, 255)
+      end
+    end)
+  end
 end
 
 function gameLevel1:enter()
   player = Player(self.world,  32, 64)
   LevelBase.Entities:add(player)
+  
+	--music = love.audio.newSource("assets/audio/music/Evan King - 20XX - 18 Aeon Prime.mp3") -- if "static" is omitted, LÖVE will stream the file from disk, good for longer music tracks
+	--music:setLooping(true)
+	--music:play()
 end
 
 function gameLevel1:update(dt)
@@ -35,7 +70,9 @@ end
 
 function gameLevel1:draw()
   -- Attach the camera before drawing the entities
+  --camera:draw()
   camera:set()
+
 
   self.map:draw(-camera.x, -camera.y) -- Remember that we inherited map from LevelBase
   LevelBase.Entities:draw() -- this executes the draw function for each individual Entity

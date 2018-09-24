@@ -13,7 +13,7 @@ local LevelBase = Class{
   __includes = Gamestate,
   init = function(self, mapFile)
     self.map = sti(mapFile, { 'bump' })
-    self.world = bump.newWorld(32)
+    self.world = bump.newWorld(16)
     self.map:resize(love.graphics.getWidth(), love.graphics.getHeight())
 
     self.map:bump_init(self.world)

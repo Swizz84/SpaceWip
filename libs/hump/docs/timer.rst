@@ -223,7 +223,7 @@ seconds have passed.
 ::
 
     -- shake the camera for one second
-    local orig_x, orig_y = camera:pos()
+    local orig_x, orig_y = camera:position()
     Timer.during(1, function()
         camera:lookAt(orig_x + math.random(-2,2), orig_y + math.random(-2,2))
     end, function()
@@ -470,7 +470,7 @@ You can add custom interpolation methods by adding them to the `tween` table::
 Access the your method like you would the predefined ones. You can even use the
 modyfing prefixes::
 
-    Timer.tween(5, 'in-out-sqrt', circle, {radius = 50})
+    Timer.tween(5, circle, {radius = 50}, 'in-out-sqrt')
 
 You can also invert and chain functions::
 
